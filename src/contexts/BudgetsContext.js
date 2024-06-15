@@ -9,14 +9,14 @@ export function useBudgets() {
 
 export const BudgetsProvider = ({ children }) => {
     const [budgets, setBudgets] = useState([])
-    const [expenses. setExpenses] = useState([])
+    const [expenses, setExpenses] = useState([])
 
     function getBudgetExpenses(budgetId) {
         return expenses.filter(expense => expense.budgetId === budgetId)
     }
 
     function addExpense({ description, amount, budgetId }) {
-        setExpense(prevExpenses => {
+        setExpenses(prevExpenses => {
            return [...prevExpenses, {id: uuidV4(), description, amount, budgetId }] 
         })
     }
@@ -29,11 +29,16 @@ export const BudgetsProvider = ({ children }) => {
            return [...prevBudgets, {id: uuidV4(), name, max}] 
         })
     }
-    function deleteBudget() {
-
+    function deleteBudget({ id }) {
+        setBudgets(prevBudgets => {
+            return prevBudgets.filter(budget => budget.id !== id)
+        })
     }
-    function deleteExpense() {
 
+    function deleteExpense({ id }) {
+        setExpenses(prevExpenses => {
+            return prevExpenses.filter(expense => expense.id !== id)
+        })
     }
     
     return <BudgetsContext.Provider 
